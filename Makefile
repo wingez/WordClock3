@@ -1,6 +1,9 @@
-PRG            = clock
+PRG            = Wordclock
 
-OBJ            = main.c wait.c
+SRC	       =$(wildcard *.c)
+
+OBJ	       =$(SRC:.c=.o)
+
 MCU_TARGET     = atmega328p
 
 OPTIMIZE       = -O2
