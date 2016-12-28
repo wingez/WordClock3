@@ -10,7 +10,7 @@ OPTIMIZE       = -O2
 DEFS           =
 LIBS           =
 # You should not have to change anything below here.
-CC             = avr-gcc
+CC             = avr-g++
 # Override is only needed by avr-lib build system.
 override CFLAGS        = -g -Wall $(OPTIMIZE) -mmcu=$(MCU_TARGET) $(DEFS)
 override LDFLAGS       = -Wl,-Map,$(PRG).map
