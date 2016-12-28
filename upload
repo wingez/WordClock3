@@ -1,0 +1,5 @@
+#!/bin/bash
+
+make
+
+sudo avrdude -p attiny -C ~/avrdude_gpio.conf -c pi_1 -e -U flash:w:main.hex
