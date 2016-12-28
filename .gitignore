@@ -4,3 +4,5 @@
 *.hex
 *.elf
 *.BAK
+*.bin
+*.srec
