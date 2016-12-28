@@ -3,6 +3,7 @@
 #include "tlc5940.h"
 #include "config.h"
 #include <avr/interrupt.h>
+#include <avr/io.h>
 
 volatile  char needXLAT = 0;
 
@@ -14,6 +15,44 @@ const char /*TLC5940::*/xlatPins[4] = {
 	(1 << TLC5940_XLAT2),
 	(1 << TLC5940_XLAT3),
 	(1 << TLC5940_XLAT4) };
+
+void TLC5940::Start()
+{
+	cli();
+	//Setup timer2 to toggle OC2B each clockcycle. At8MHz this gives a 4MHz square wave
+	TCCR2A = 0b00010010;
+	TCCR2B = 0b00000001;
+
+	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
+	TCCR1A = 0b00000000;
+	TCCR1B = 0b00001100;
+	TIMSK1 = 0b00000010;
+	OCR1A = 31;
+	TLC5940_BLANK_PORT &= ~(1 << TLC5940_BLANK);
+
+	sei();
+}
+
+void TLC5940::Stop()
+{
+	cli();
+
+
+	//Setup timer2 to toggle OC2B each clockcycle. At8MHz this gives a 4MHz square wave
+	TCCR2A = 0;
+	TCCR2B = 0;
+
+	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
+	TCCR1A = 0;
+	TCCR1B = 0;
+	TIMSK1 = 0;
+	OCR1A = 0;
+	TLC5940_BLANK_PORT |= (1 << TLC5940_BLANK);
+
+	sei();
+}
+
+
 
 void TLC5940::Setup()
 {
@@ -35,10 +74,11 @@ void TLC5940::Setup()
 	} while (xlatcounter);
 
 
-	//TODOOOOOOOOOOOOOOOOOOOOO
+	//Setup timer2 to toggle OC2B each clockcycle. At8MHz this gives a 4MHz square wave
 	TCCR2A = 0b00010010;
 	TCCR2B = 0b00000001;
 
+	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
 	TCCR1A = 0b00000000;
 	TCCR1B = 0b00001100;
 	TIMSK1 = 0b00000010;
@@ -60,9 +100,7 @@ void TLC5940::Setup()
 
 	Update();
 
-
-
-
+	Stop();
 }
 
 void TLC5940::Update()
@@ -75,7 +113,7 @@ void TLC5940::Update()
 	unsigned int mask;
 
 	TLC5940_VPRG_PORT &= ~(1 << TLC5940_VPRG);
-	
+
 	while (chipCounter < TLC5940_NUMREGISTERS)
 	{
 		lampcounter = chipCounter * 16 + 15;
@@ -105,6 +143,8 @@ void TLC5940::Update()
 			lampcounter--;
 
 		}
+
+		//Wait for data to be latched in
 		needXLAT = xlatPins[chipCounter];
 		while (needXLAT) {}
 

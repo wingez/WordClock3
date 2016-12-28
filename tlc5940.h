@@ -16,6 +16,10 @@ public:
 	unsigned int BrightnessValues[TLC5940_NUMREGISTERS*16];
 
 	void Setup();
+
+	void Start();
+	void Stop();
+
 	void Update();
 
 private:
