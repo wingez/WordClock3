@@ -8,7 +8,7 @@
 #include <avr/pgmspace.h>
 
 //#include "tlc5940.h"
-//#include "animation.h"
+#include "animation.h"
 #include "config.h"
 
 #include "display.h"
@@ -83,25 +83,38 @@ Display display;
 
 int main()
 {
+
+
 	Display::Setup();
+	display.Clear();
+	display.SetRaw(9);
+	display.Show();
+
 
 	unsigned int counter = 0;
 	while (1)
 	{
-		display.Clear();
-		display.SetRaw(counter);
-		display.Show();
-		_delay_ms(8000);
+		counter = 0;
+		while (counter < 12)
+		{
+			counter++;
+			Display::IncreaseBrightness();
+			_delay_ms(300);
+		}
 
-		counter++;
-		if (counter >= 32)
-			counter = 0;
+		counter = 0;
+		while (counter < 12)
+		{
+			counter++;
+			Display::DecreaseBrightness();
+			_delay_ms(300);
+		}
 	}
 
 
 
 
-	
+
 	/*unsigned char counter = 0;
 	while (++counter<32)
 	{
@@ -122,34 +135,32 @@ int main()
 
 
 
-	//DDRC |= (1 << PC0) | (1 << PC1) | (1 << PC2);
+//DDRC |= (1 << PC0) | (1 << PC1) | (1 << PC2);
 
-	//PORTC &= ~(1 << PC2);
+//PORTC &= ~(1 << PC2);
 
-	/*unsigned char counter = 0;
-	while (counter < 32)
-	{
-		Clock();
-		Latch();
+/*unsigned char counter = 0;
+while (counter < 32)
+{
+	Clock();
+	Latch();
 
 
-		counter++;
-	}
+	counter++;
+}
 */
 
 
 
 
-	//DDRB |= (1 << PB2);
-	//PORTB &= ~(1 << PB2);
+//DDRB |= (1 << PB2);
+//PORTB &= ~(1 << PB2);
 
-	//Shiftout();
-	//while (1)
-	//{
+//Shiftout();
+//while (1)
+//{
 
-	//}
-
-
+//}
 
 
 
@@ -160,23 +171,25 @@ int main()
 
 
 
-	//PORTC |= (1 << PC2);
-	//Clock();
-	//Latch();
-	//PORTC &= ~(1 << PC2);
-
-	//while (1)
-	//{
-	//	Clock();
-	//	Latch();
-	//	_delay_ms(1000);
-	//}
 
 
+//PORTC |= (1 << PC2);
+//Clock();
+//Latch();
+//PORTC &= ~(1 << PC2);
+
+//while (1)
+//{
+//	Clock();
+//	Latch();
+//	_delay_ms(1000);
+//}
 
 
 
-	/*animation.Setup();
+
+/*
+	animation.Setup();
 
 	while (1)
 	{
