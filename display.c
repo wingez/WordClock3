@@ -59,7 +59,7 @@ void Display::Setup()
 	updateBrightness();
 
 
-	DDRB |= (1 << PB2);
+	DISPLAY_PWM_DDR |= (1 << DISPLAY_PWM);
 	// PD6 is now an output
 
 	
