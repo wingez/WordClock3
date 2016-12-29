@@ -2,8 +2,8 @@
 #include "ds1302.h"
 #include "config.h"
 
-#include <avr\io.h>
-#include <util\delay.h>
+#include <avr/io.h>
+#include <util/delay.h>
 
 //#define DS1302_SCLK_PIN   7    // Arduino pin for the Serial Clock
 //#define DS1302_IO_PIN     6    // Arduino pin for the Data I/O
@@ -96,7 +96,7 @@ void DS1302::Setup()
 	// Disable Trickle Charger.
 	write(DS1302_TRICKLE, 0x00);
 
-	//DS1302_write(DS1302_SECONDS, 0x00);
+	//write(DS1302_SECONDS, 0x00);
 }
 
 void DS1302::GetTime(DateTime *time)
@@ -118,36 +118,28 @@ void DS1302::GetTime(DateTime *time)
 
 	time->Date = 10 * ((date & 0xf0) >> 4) + (date & 0x0f);
 
-	time->Hour = 10 * ((hour & 0x30) >> 4) + (date & 0x0f);
+	time->Hour = 10 * ((hour & 0x30) >> 4) + (hour & 0x0f);
 
-	time->Minute = 10 * ((hour & 0x70)) + (date & 0x0f);
+	time->Minute = 10 * ((minute & 0x70) >> 4) + (minute & 0x0f);
 
-	time->Second = 10 * ((seconds & 0x70)) + (date & 0x0f);
+	time->Second = 10 * ((seconds & 0x70) >> 4) + (seconds & 0x0f);
 
 }
 
 void DS1302::SetTime(DateTime *time)
 {
-	write(DS1302_YEAR, ((time->Year / 10) << 4)&(time->Year % 10));
-	write(DS1302_MONTH, ((time->Month / 10) << 4)&(time->Month % 10));
-	write(DS1302_DATE, ((time->Date / 10) << 4)&(time->Date % 10));
-	write(DS1302_HOURS, ((time->Hour / 10) << 4)&(time->Hour % 10));
-	write(DS1302_MINUTES, ((time->Minute / 10) << 4)&(time->Minute % 10));
-	write(DS1302_SECONDS, ((time->Second / 10) << 4)&(time->Second % 10));
+	write(DS1302_YEAR, ((time->Year / 10) << 4) | (time->Year % 10));
+	write(DS1302_MONTH, ((time->Month / 10) << 4) | (time->Month % 10));
+	write(DS1302_DATE, ((time->Date / 10) << 4) | (time->Date % 10));
+	write(DS1302_HOURS, ((time->Hour / 10) << 4) | (time->Hour % 10));
+	write(DS1302_MINUTES, ((time->Minute / 10) << 4) | (time->Minute % 10));
+	write(DS1302_SECONDS, ((time->Second / 10) << 4) | (time->Second % 10));
 
 
 
 
 
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -307,7 +299,7 @@ void DS1302::togglewrite(unsigned char data, unsigned char release)
 	{
 		// set a bit of the data on the I/O-line
 
-		if (data&(1 << i))
+		if (data & (1 << i))
 			DS1302_IO_PORT |= (1 << DS1302_IO);
 		else
 			DS1302_IO_PORT &= ~(1 << DS1302_IO);
