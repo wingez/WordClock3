@@ -18,8 +18,8 @@
 |           TLC5940-SCLK    PB7 |            | PB5 SPI-CLK                |
 |           TLC5940-BLANK   PD5 |            | PB4 SPI-MISO               |
 |           TLC5940-VPRG    PD6 |            | PB3 SPI-MOSI               |
-|                           PD7 |            | PB2 DISPLAY-PWM            |
-|                           PB0 +------------+ PB1                        |
+|           DS1302-IO       PD7 |            | PB2 DISPLAY-PWM            |
+|           DS1302-CE       PB0 +------------+ PB1 DS1302-SCLK            |
 |                                                                         |
 |                                                                         |
 |                                                                         |
@@ -34,7 +34,31 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
+#define F_CPU 8000000UL
+
+
 #include <avr/io.h>
+
+/*
+
+	DS1302
+
+*/
+
+#define DS1302_CE			PB0
+#define DS1302_CE_PORT		PORTB
+#define DS1302_CE_DDR		DDRB
+
+#define DS1302_IO			PD7
+#define DS1302_IO_PORT		PORTD
+#define DS1302_IO_DDR		DDRD
+#define DS1302_IO_PIN		PIND
+
+#define DS1302_SCLK			PB1
+#define DS1302_SCLK_PORT	PORTB
+#define DS1302_SCLK_DDR		DDRB
+
+
 
 /*
 
