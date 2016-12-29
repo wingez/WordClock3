@@ -6,8 +6,8 @@
 
 const unsigned int _gamma10b10s[10] PROGMEM =
 {
-	100,200,300,400,500,600,700,800,900,1000
-}
+	1,3,16,48,106,198,329,507,736,1023
+};
 
 unsigned int Gamma10b10s(unsigned char value)
 {
