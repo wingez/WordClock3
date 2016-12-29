@@ -23,11 +23,11 @@ void TLC5940::Start()
 	TCCR2A = 0b00010010;
 	TCCR2B = 0b00000001;
 
-	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
-	TCCR1A = 0b00000000;
-	TCCR1B = 0b00001100;
-	TIMSK1 = 0b00000010;
-	OCR1A = 31;
+	//Setup timer0 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
+	TCCR0A = 0b00000000;
+	TCCR0B = 0b00001100;
+	TIMSK0 = 0b00000010;
+	OCR0A = 31;
 	TLC5940_BLANK_PORT &= ~(1 << TLC5940_BLANK);
 
 	sei();
@@ -42,11 +42,11 @@ void TLC5940::Stop()
 	TCCR2A = 0;
 	TCCR2B = 0;
 
-	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
-	TCCR1A = 0;
-	TCCR1B = 0;
-	TIMSK1 = 0;
-	OCR1A = 0;
+	//Setup timer0 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
+	TCCR0A = 0;
+	TCCR0B = 0;
+	TIMSK0 = 0;
+	OCR0A = 0;
 	TLC5940_BLANK_PORT |= (1 << TLC5940_BLANK);
 
 	sei();
@@ -78,11 +78,11 @@ void TLC5940::Setup()
 	TCCR2A = 0b00010010;
 	TCCR2B = 0b00000001;
 
-	//Setup timer1 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
-	TCCR1A = 0b00000000;
-	TCCR1B = 0b00001100;
-	TIMSK1 = 0b00000010;
-	OCR1A = 31;
+	//Setup timer0 to call an interupt every 8192 clockcycles. 8192 clockcycles is equal to 4096 puleson OC2B frpm timer 2
+	TCCR0A = 0b00000000;
+	TCCR0B = 0b00001100;
+	TIMSK0 = 0b00000010;
+	OCR0A = 31;
 
 	sei();
 
@@ -182,9 +182,9 @@ void TLC5940::SetDOT()
 
 
 
-ISR(TIMER1_OVF_vect) {}
-ISR(TIMER1_COMPB_vect) {}
-ISR(TIMER1_COMPA_vect)
+ISR(TIMER0_OVF_vect) {}
+ISR(TIMER0_COMPB_vect) {}
+ISR(TIMER0_COMPA_vect)
 {
 	TLC5940_BLANK_PORT |= (1 << TLC5940_BLANK);
 
