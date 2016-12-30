@@ -94,6 +94,9 @@ void Display::SetTime(DateTime *time)
 
 	unsigned char clock = time->Minute / 5;
 
+	//Show "It's olock"
+	SetRaw(DISPLAYSTATUS_CLOCK);
+
 	switch (clock)
 	{
 	case 0:
