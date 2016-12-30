@@ -5,10 +5,6 @@
 
 
 
-Time::Time()
-{
-
-}
 
 void Time::GetCurrent(Time *time)
 {
