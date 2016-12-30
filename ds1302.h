@@ -10,8 +10,8 @@
 class DS1302
 {
 public:
-	static void GetTime(DateTime *time);
-	static void SetTime(DateTime *time);
+	static void GetTime(Time *time);
+	static void SetTime(Time *time);
 
 	static void Setup();
 	static unsigned char read(unsigned char address);

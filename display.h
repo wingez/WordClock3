@@ -22,7 +22,7 @@ public:
 
 	void SetDigit(unsigned char digit);
 
-	void SetTime(DateTime *time);
+	void SetTime(Time *time);
 
 
 	void Clear();

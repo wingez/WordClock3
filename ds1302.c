@@ -99,7 +99,7 @@ void DS1302::Setup()
 	//write(DS1302_SECONDS, 0x00);
 }
 
-void DS1302::GetTime(DateTime *time)
+void DS1302::GetTime(Time *time)
 {
 	//Year
 	unsigned int year = read(DS1302_YEAR);
@@ -126,7 +126,7 @@ void DS1302::GetTime(DateTime *time)
 
 }
 
-void DS1302::SetTime(DateTime *time)
+void DS1302::SetTime(Time *time)
 {
 	write(DS1302_YEAR, ((time->Year / 10) << 4) | (time->Year % 10));
 	write(DS1302_MONTH, ((time->Month / 10) << 4) | (time->Month % 10));

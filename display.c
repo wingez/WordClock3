@@ -88,7 +88,7 @@ void Display::SetDigit(unsigned char digit)
 
 }
 
-void Display::SetTime(DateTime *time)
+void Display::SetTime(Time *time)
 {
 	unsigned char hour = time->Hour;
 
