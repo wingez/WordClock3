@@ -2,6 +2,11 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+
+#include "time.h"
+
+
+
 #define BRIGHTNESS_DEFAULT 8
 #define BRIGHTNESS_MAX 9
 
@@ -14,6 +19,12 @@ public:
 
 
 	void SetRaw(unsigned char value);
+
+	void SetDigit(unsigned char digit);
+
+	void SetTime(DateTime *time);
+
+
 	void Clear();
 
 	void Show();
@@ -31,6 +42,10 @@ private:
 
 	static unsigned char brightness;
 	static void updateBrightness();
+	
+
+	static const unsigned char digits[12];
+
 
 };
 
