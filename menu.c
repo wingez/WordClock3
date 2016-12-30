@@ -115,7 +115,7 @@ void Menu::Update()
 		{
 		case MENUSTATE_BRIGHTNESS:
 
-			//Display::IncreaseBrightness();
+			Display::IncreaseBrightness();
 
 			break;
 
@@ -177,7 +177,7 @@ void Menu::Update()
 
 		case MENUSTATE_BRIGHTNESS:
 
-			//Display::DecreaseBrightness();
+			Display::DecreaseBrightness();
 
 			break;
 
@@ -342,7 +342,7 @@ void Menu::apply()
 	time.Second = 1;
 
 	Time::SetCurrent(&time);
-
+	Display::SaveBrightness();
 }
 
 void Menu::abort()

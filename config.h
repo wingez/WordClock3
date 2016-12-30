@@ -39,6 +39,10 @@
 
 #include <avr/io.h>
 
+
+
+
+
 /*
 
 	MENU
@@ -139,7 +143,7 @@
 #define DISPLAYSTATUS_BDAY			30	
 #define DISPLAYSTATUS_ACTIVEBDAY	31	
 
-
+#define DISPLAY_EEPROM_BRIGHTNESS_ADDR 1
 
 
 

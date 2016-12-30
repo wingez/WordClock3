@@ -6,7 +6,7 @@
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
+#include <avr/eeprom.h>
 
 
 
@@ -32,7 +32,7 @@ const unsigned char Display::digits[12] = {
 
 --------------------------------------------*/
 
-unsigned char Display::brightness = BRIGHTNESS_DEFAULT;
+unsigned char Display::brightness = 0;
 
 
 Display::Display()
@@ -55,7 +55,13 @@ void Display::Setup()
 	shiftout(&t);
 
 
-	updateBrightness();
+
+
+	loadBrightness();
+
+
+
+
 
 	//Set PWM output
 	DISPLAY_PWM_DDR |= (1 << DISPLAY_PWM);
@@ -211,7 +217,7 @@ void Display::SetTime(Time *time)
 
 	unsigned char minute = time->Minute;
 	unsigned char hour = time->Hour;
-	
+
 	if (minute >= 25)
 		hour++;
 
@@ -228,9 +234,9 @@ void Display::SetTime(Time *time)
 
 	unsigned char clock = time->Minute / 5;*/
 
-	
 
-	
+
+
 	//SetDigit(hour);
 }
 
@@ -259,6 +265,23 @@ void Display::DecreaseBrightness()
 		updateBrightness();
 	}
 }
+
+void Display::SaveBrightness()
+{
+	//unsigned char addr = /*DISPLAY_EEPROM_BRIGHTNESS_ADDR*/;
+	eeprom_write_byte((uint8_t*)DISPLAY_EEPROM_BRIGHTNESS_ADDR, brightness);
+}
+void Display::loadBrightness()
+{
+	//unsigned char addr = /*DISPLAY_EEPROM_BRIGHTNESS_ADDR*/;
+	unsigned char val = eeprom_read_byte((uint8_t*)DISPLAY_EEPROM_BRIGHTNESS_ADDR);
+	if (val > BRIGHTNESS_MAX)
+		val = BRIGHTNESS_DEFAULT;
+
+	brightness = val;
+	updateBrightness();
+}
+
 
 
 
