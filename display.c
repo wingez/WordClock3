@@ -85,8 +85,44 @@ void Display::SetDigit(unsigned char digit)
 
 
 	SetRaw(digits[digit]);
-
 }
+
+//1-31
+void Display::SetNumber(unsigned char number)
+{
+	if (number == 0 || number > 31)
+		return;
+
+	//1-9
+	if (number < 10)
+		SetDigit(number);
+	//10-19
+	else if (number < 20)
+	{
+		SetRaw(DISPLAYTIME_TEN);
+		SetDigit(number - 10);
+	}
+	//20-29
+	else if (number < 30)
+	{
+		SetRaw(DISPLAYTIME_TWENTY);
+		SetDigit(number - 20);
+	}
+	//30
+	else if (number == 30)
+	{
+		SetDigit(3);
+		SetDigit(10);
+	}
+	else if (number == 31)
+	{
+		SetDigit(3);
+		SetDigit(10);
+		SetDigit(1);
+	}
+}
+
+
 
 void Display::SetTime(Time *time)
 {
@@ -160,7 +196,7 @@ void Display::SetTime(Time *time)
 
 	//Reduse number of hours from 0-24 to 0-12
 	if (hour > 12)
-		hour-=12;
+		hour -= 12;
 
 
 	//Display 12 instead of 0

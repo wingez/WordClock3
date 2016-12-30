@@ -22,6 +22,8 @@ public:
 
 	void SetDigit(unsigned char digit);
 
+	void SetNumber(unsigned char number);
+
 	void SetTime(Time *time);
 
 
