@@ -93,8 +93,8 @@ void Display::SetNumber(unsigned char number)
 	if (number == 0 || number > 31)
 		return;
 
-	//1-9
-	if (number < 10)
+	//1-12
+	if (number < 13)
 		SetDigit(number);
 	//10-19
 	else if (number < 20)
@@ -123,15 +123,9 @@ void Display::SetNumber(unsigned char number)
 }
 
 
-
-void Display::SetTime(Time *time)
+void Display::SetMinute(unsigned char minute)
 {
-	unsigned char hour = time->Hour;
-
-	unsigned char clock = time->Minute / 5;
-
-	//Show "It's olock"
-	SetRaw(DISPLAYSTATUS_CLOCK);
+	unsigned char clock = minute / 5;
 
 	switch (clock)
 	{
@@ -157,43 +151,42 @@ void Display::SetTime(Time *time)
 		SetRaw(DISPLAYTIME_FIVE);
 		SetRaw(DISPLAYTIME_TO);
 		SetRaw(DISPLAYTIME_HALF);
-		hour++;
 		break;
 	case 6:
 		SetRaw(DISPLAYTIME_HALF);
-		hour++;
 		break;
 	case 7:
 		SetRaw(DISPLAYTIME_FIVE);
 		SetRaw(DISPLAYTIME_PAST);
 		SetRaw(DISPLAYTIME_HALF);
-		hour++;
 		break;
 	case 8:
 		SetRaw(DISPLAYTIME_TWENTY);
 		SetRaw(DISPLAYTIME_TO);
-		hour++;
 		break;
 	case 9:
 		SetRaw(DISPLAYTIME_QUARTER);
 		SetRaw(DISPLAYTIME_TO);
-		hour++;
 		break;
 	case 10:
 		SetRaw(DISPLAYTIME_TEN);
 		SetRaw(DISPLAYTIME_TO);
-		hour++;
 		break;
 	case 11:
 		SetRaw(DISPLAYTIME_FIVE);
 		SetRaw(DISPLAYTIME_TO);
-		hour++;
 		break;
 	default:
 		break;
 	}
 
 
+
+
+
+}
+void Display::SetHour(unsigned char hour)
+{
 	//Reduse number of hours from 0-24 to 0-12
 	if (hour > 12)
 		hour -= 12;
@@ -203,7 +196,42 @@ void Display::SetTime(Time *time)
 	if (hour == 0)
 		hour = 12;
 
+
+
+
 	SetDigit(hour);
+}
+
+
+
+void Display::SetTime(Time *time)
+{
+	//Show "It's olock"
+	SetRaw(DISPLAYSTATUS_CLOCK);
+
+	unsigned char minute = time->Minute;
+	unsigned char hour = time->Hour;
+	
+	if (minute >= 25)
+		hour++;
+
+
+
+	//Show hour
+	SetHour(hour);
+
+	//Show minute
+	SetMinute(minute);
+
+	/*
+		unsigned char hour = time->Hour;
+
+	unsigned char clock = time->Minute / 5;*/
+
+	
+
+	
+	//SetDigit(hour);
 }
 
 

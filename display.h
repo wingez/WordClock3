@@ -24,6 +24,9 @@ public:
 
 	void SetNumber(unsigned char number);
 
+	void SetMinute(unsigned char number);
+	void SetHour(unsigned char number);
+
 	void SetTime(Time *time);
 
 
