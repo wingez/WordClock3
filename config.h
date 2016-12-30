@@ -72,6 +72,7 @@
 #define DISPLAY_LATCH PC1
 #define DISPLAY_DATA PC2
 
+//This pin is kinda hardcoded
 #define DISPLAY_PWM PB2
 #define DISPLAY_PWM_DDR DDRB
 
