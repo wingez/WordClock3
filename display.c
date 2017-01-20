@@ -269,7 +269,7 @@ void Display::DecreaseBrightness()
 void Display::SaveBrightness()
 {
 	//unsigned char addr = /*DISPLAY_EEPROM_BRIGHTNESS_ADDR*/;
-	eeprom_write_byte((uint8_t*)DISPLAY_EEPROM_BRIGHTNESS_ADDR, brightness);
+	eeprom_update_byte((uint8_t*)DISPLAY_EEPROM_BRIGHTNESS_ADDR, brightness);
 }
 void Display::loadBrightness()
 {

@@ -40,6 +40,19 @@
 #include <avr/io.h>
 
 
+/*
+
+	BIRTHDAYS
+
+*/
+
+#define BIRTHDAY_EEPROM_BASE_ADDR 2
+
+
+
+
+
+
 
 
 
@@ -172,7 +185,7 @@
 
 */
 
-#define TLC5940_NUMREGISTERS 1
+#define TLC5940_NUMREGISTERS 4
 
 
 //VPRG

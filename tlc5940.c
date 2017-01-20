@@ -148,6 +148,8 @@ void TLC5940::Update()
 		needXLAT = xlatPins[chipCounter];
 		while (needXLAT) {}
 
+
+
 		chipCounter++;
 	}
 
@@ -157,8 +159,8 @@ void TLC5940::SetDOT()
 {
 	TLC5940_VPRG_PORT |= (1 << TLC5940_VPRG);
 	TLC5940_SIN_PORT |= (1 << TLC5940_SIN);
-	char counter;
-	char chipcounter = 0;
+	unsigned char counter;
+	unsigned char chipcounter = 0;
 	while (chipcounter < TLC5940_NUMREGISTERS)
 	{
 		counter = 0;

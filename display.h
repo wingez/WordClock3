@@ -39,6 +39,7 @@ public:
 	static void Setup();
 	static void IncreaseBrightness();
 	static void DecreaseBrightness();
+	static void SaveBrightness();
 
 private:
 	unsigned long data;
@@ -47,7 +48,7 @@ private:
 
 	static unsigned char brightness;
 	static void updateBrightness();
-	
+	static void loadBrightness();
 
 	static const unsigned char digits[12];
 

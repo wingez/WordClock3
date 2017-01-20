@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "time.h"
 #include "display.h"
+#include "birthday.h"
 
 #define BUTTON_NONE 0
 #define BUTTON_MODE 1
@@ -158,6 +159,13 @@ void Menu::Update()
 			time.Date++;
 			if (time.Date > daysinmonth[time.Month - 1])
 				time.Date = 1;
+			
+			break;
+
+
+		case MENUSTATE_BDAY:
+			Birthday::Set(&time, 1);
+
 			break;
 
 
@@ -232,6 +240,8 @@ void Menu::Update()
 
 			break;
 
+		case MENUSTATE_BDAY:
+			Birthday::Set(&time, 0);
 
 		default:
 			break;
@@ -314,6 +324,10 @@ void Menu::SetDisplay(Display *display)
 
 	case MENUSTATE_BDAY:
 		display->SetRaw(DISPLAYSTATUS_BDAY);
+
+		if (Birthday::IsBirthday(&time))
+			display->SetRaw(DISPLAYSTATUS_ACTIVEBDAY);
+
 		break;
 	default:
 		break;

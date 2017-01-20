@@ -13,7 +13,7 @@
 
 typedef char AnimationMode;
 
-class RGB
+struct RGB
 {
 public:
 	unsigned int Red;
@@ -22,11 +22,26 @@ public:
 };
 
 
-class HSV
+struct HSV
 {
 public:
 	unsigned int Hue;
+
 };
+
+struct RainbowData
+{
+	unsigned int hue;
+};
+
+union AnimationData
+{
+	RainbowData rainbow;
+};
+
+
+
+
 
 
 class Animation
@@ -55,8 +70,11 @@ private:
 	void SetAllRGB(unsigned int R, unsigned int G, unsigned int B);
 	void SetAllHSV(unsigned int hue);
 
+	void SetLampRGB(unsigned char lamp, RGB* value);
 
-	unsigned int hue;
+	void HueToRGB(unsigned int hue,RGB* color);
+
+	AnimationData data;
 
 	/*TLC5940 tlc;
 	AnimationMode mode;
